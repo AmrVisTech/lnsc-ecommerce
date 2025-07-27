@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 💻 LNSC Laptops — Premium Ecommerce Platform
 
-## Getting Started
+Welcome to the official repository for **LNSC Laptops Ecommerce App**, a modern and immersive multi-branch ecommerce platform built as a proposal for LNSC — a laptop retailer with branches across Mindanao, Philippines.
 
-First, run the development server:
+> ⚠️ This project is an independent development proposal by a dedicated team of developers. It is **not yet officially endorsed or affiliated with LNSC**. We are using the company name for presentation purposes only.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ✨ Project Vision
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+LNSC Laptops aims to redefine the online shopping experience for high-performance laptops in the Philippines through:
+- Stunning, product-focused design
+- Scroll-triggered animations and parallax storytelling
+- Branch-aware inventory and customer experience
+- Fully responsive, mobile-optimized experience
+- Modern UX patterns such as dark/light mode, animated cart, and dynamic navbar
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🧩 Features
 
-To learn more about Next.js, take a look at the following resources:
+- 🖥️ **Homepage:** Scroll-based product showcase with fade-ins, parallax sections, and floating assets  
+- 🛍️ **Shop:** Filterable product listings by specs, price, and branch availability  
+- 📄 **Product Detail:** Full spec breakdown, gallery, reviews, and related items  
+- 🛒 **Cart & Checkout:** Dynamic cart, pickup location, and checkout form (ready for GCash/COD)  
+- 📍 **Branch Locator:** Interactive Mindanao map and store directory  
+- 📖 **Company Timeline:** History of branch expansion styled like Zulu Longines  
+- 💬 **Contact & CTA:** Chat support integrations and store hours  
+- 🌓 **Dark/Light Mode:** Theme toggle with system preference detection  
+- 📱 **Responsive Design:** Tailored UX across desktop, tablet, and mobile  
+- 🎯 **Performance Optimized:** Lazy loading, optimized images, and minimal runtime JS  
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🏗️ Built With
 
-## Deploy on Vercel
+| Tech | Description |
+|------|-------------|
+| [Next.js](https://nextjs.org) | React framework for scalable frontend |
+| [Tailwind CSS](https://tailwindcss.com) | Utility-first CSS for modern UI |
+| [Framer Motion](https://www.framer.com/motion/) | Animation library for scroll and transition effects |
+| [React Hook Form](https://react-hook-form.com/) | Form handling and validation |
+| [Headless UI](https://headlessui.dev/) | Accessible components for dropdowns, modals |
+| [Lucide Icons](https://lucide.dev/) | Modern open-source icon set |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🛠️ Contributing
+
+We welcome collaborators! Please follow our [📘 Contribution Guidelines & Wiki](https://github.com/AmrVisTech/lnsc-ecommerce/wiki/Getting-Started-&-Contributing) for setup instructions, code standards, and how to participate in development.
+
+---
+
+## 📣 Disclaimers
+
+> This is a proposal project intended for presentation and internal development only.
+> While the LNSC name and brand elements are referenced, we do **not yet have official permission or endorsement** from the company.
+
+## 📄 License
+
+This project is licensed under the  
+**Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License (CC BY-NC-ND 4.0)**.
+
+[![License: CC BY-NC-ND 4.0](https://img.shields.io/badge/License-CC--BY--NC--ND%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
+
+Please refer to the [LICENSE](./LICENSE) file for full legal terms and usage conditions.
+
+> ⚠️ This is an independent proposal created by the development team under the organization name **AmrVisTech (AVT)**.  
+> It is **not officially affiliated with or endorsed by LNSC**.  
+> The LNSC name and related references are used **strictly for internal development and demonstration purposes**.
+
+---
+
+## 🤝 Contact
+
+If you're from LNSC or a partner interested in this project:
+
+* 📧 Email: [amrvistech@gmail.com](mailto:amrvistech@gmail.com)
+* 📞 Phone: +63-975-950-1214
+* 🗺️ Location: Zamboanga City, Philippines
+
+---
+> 🚀 This project is maintained by [AmrVisTech (AVT)](https://github.com/AmrVisTech), a collaborative developer team focused on building innovative technology proposals and systems for modern businesses.
+
+*Copyright © 2025 AmrVisTech (AVT)*
