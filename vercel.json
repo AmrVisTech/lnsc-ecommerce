@@ -9,8 +9,5 @@
         }
       ]
     }
-  ],
-  "eslint": {
-    "ignoreDuringBuilds": true
-  }
+  ]
 }
