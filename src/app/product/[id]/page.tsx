@@ -11,6 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useCart } from "@/lib/cart-context"
 import { useComparison } from "@/lib/comparison-context"
+import ImageCarousel from "@/components/image-carousel"
 
 // Mock product data - in real app, this would come from API
 const getProductById = (id: string) => {
@@ -236,6 +237,10 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 mb-12">
+          {/* Image Carousel */}
+          <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}>
+            <ImageCarousel images={product.images} productName={product.name} />
+          </motion.div>
 
           {/* Product Info */}
           <motion.div
