@@ -13,6 +13,7 @@ import { useCart } from "@/lib/cart-context"
 import { useComparison } from "@/lib/comparison-context"
 import ImageCarousel from "@/components/image-carousel"
 import ProductSpecs from "@/components/product-specs"
+import ProductReviews from "@/components/product-reviews"
 
 // Mock product data - in real app, this would come from API
 const getProductById = (id: string) => {
@@ -423,6 +424,10 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
 
             <TabsContent value="specs" className="mt-6">
               <ProductSpecs specs={product.specs} />
+            </TabsContent>
+
+            <TabsContent value="reviews" className="mt-6">
+              <ProductReviews reviews={product.reviews} rating={product.rating} reviewCount={product.reviewCount} />
             </TabsContent>
 
           </Tabs>
