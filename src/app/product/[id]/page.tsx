@@ -14,6 +14,7 @@ import { useComparison } from "@/lib/comparison-context"
 import ImageCarousel from "@/components/image-carousel"
 import ProductSpecs from "@/components/product-specs"
 import ProductReviews from "@/components/product-reviews"
+import RelatedProducts from "@/components/related-products"
 
 // Mock product data - in real app, this would come from API
 const getProductById = (id: string) => {
@@ -432,6 +433,9 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
 
           </Tabs>
         </motion.div>
+
+        {/* Related Products */}
+        <RelatedProducts currentProductId={product.id} category={product.category} />
       </div>
     </div>
   )
