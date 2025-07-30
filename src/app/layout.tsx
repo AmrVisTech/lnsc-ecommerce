@@ -7,6 +7,7 @@ import Navbar from "@/components/navbar"
 import { CartProvider } from "@/lib/cart-context"
 import { SearchProvider } from "@/lib/search-context"
 import { ComparisonProvider } from "@/lib/comparison-context"
+import { ReviewsProvider } from "@/lib/reviews-context"
 import SlideInCart from "@/components/slide-in-cart"
 import ComparisonBar from "@/components/comparison-bar"
 import { Suspense } from "react"
@@ -46,12 +47,14 @@ export default function RootLayout({
           <Suspense fallback={null}>
             <SearchProvider>
               <ComparisonProvider>
-                <CartProvider>
-                  <Navbar />
-                  <main className="pt-16 pb-20">{children}</main>
-                  <SlideInCart />
-                  <ComparisonBar />
-                </CartProvider>
+                <ReviewsProvider>
+                  <CartProvider>
+                    <Navbar />
+                    <main className="pt-16 pb-20">{children}</main>
+                    <SlideInCart />
+                    <ComparisonBar />
+                  </CartProvider>
+                </ReviewsProvider>
               </ComparisonProvider>
             </SearchProvider>
           </Suspense>
