@@ -1,64 +1,70 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { GeistSans } from "geist/font/sans"
-import { GeistMono } from "geist/font/mono"
+import { Inter, Playfair_Display, Pacifico } from "next/font/google"
 import "./globals.css"
-import { WishlistProvider } from "@/lib/wishlist-context"
-import { ReviewsProvider } from "@/lib/reviews-context"
-import { EmailProvider } from "@/lib/email-context"
-import { ComparisonProvider } from "@/lib/comparison-context"
+import { ThemeProvider } from "@/lib/theme-context"
+import Navbar from "@/components/navbar"
 import { CartProvider } from "@/lib/cart-context"
 import { SearchProvider } from "@/lib/search-context"
-import { ThemeProvider } from "@/lib/theme-context"
-import Navbar from "@/components/Navbar"
-import Footer from "@/components/Footer"
-import SlideInCart from "@/components/SlideInCart"
-import ComparisonBar from "@/components/ComparisonBar"
+import { ComparisonProvider } from "@/lib/comparison-context"
+import { ReviewsProvider } from "@/lib/reviews-context"
+import { EmailProvider } from "@/lib/email-context"
+import { WishlistProvider } from "@/lib/wishlist-context"
+import SlideInCart from "@/components/slide-in-cart"
+import ComparisonBar from "@/components/comparison-bar"
+import { Suspense } from "react"
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+})
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
+})
+
+const pacifico = Pacifico({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-pacifico",
+})
 
 export const metadata: Metadata = {
-  title: "v0 App",
-  description: "Created with v0",
-  generator: "v0.dev",
+  title: "LNSC - Premium Laptops for Mindanao",
+  description:
+    "Discover cutting-edge laptop technology with branches across Zamboanga, Davao, CDO, and beyond. Your trusted tech partner in Mindanao.",
+  keywords: "laptops, computers, technology, Mindanao, Zamboanga, Davao, CDO, gaming laptops, business laptops",
 }
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode
-}>) {
+}) {
   return (
-    <html lang="en">
-      <head>
-        <style>{`
-html {
-  font-family: ${GeistSans.style.fontFamily};
-  --font-sans: ${GeistSans.variable};
-  --font-mono: ${GeistMono.variable};
-}
-        `}</style>
-      </head>
-      <body>
-        <WishlistProvider>
-          <ReviewsProvider>
-            <EmailProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.variable} ${playfair.variable} ${pacifico.variable} font-sans antialiased`}>
+        <ThemeProvider defaultTheme="dark" storageKey="lnsc-theme">
+          <Suspense fallback={null}>
+            <SearchProvider>
               <ComparisonProvider>
-                <CartProvider>
-                  <SearchProvider>
-                    <ThemeProvider>
-                      <div className="min-h-screen bg-background">
+                <ReviewsProvider>
+                  <EmailProvider>
+                    <WishlistProvider>
+                      <CartProvider>
                         <Navbar />
-                        <main>{children}</main>
-                        <Footer />
+                        <main className="pt-16 pb-20">{children}</main>
                         <SlideInCart />
                         <ComparisonBar />
-                      </div>
-                    </ThemeProvider>
-                  </SearchProvider>
-                </CartProvider>
+                      </CartProvider>
+                    </WishlistProvider>
+                  </EmailProvider>
+                </ReviewsProvider>
               </ComparisonProvider>
-            </EmailProvider>
-          </ReviewsProvider>
-        </WishlistProvider>
+            </SearchProvider>
+          </Suspense>
+        </ThemeProvider>
       </body>
     </html>
   )
