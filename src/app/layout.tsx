@@ -10,6 +10,7 @@ import { ComparisonProvider } from "@/lib/comparison-context"
 import { ReviewsProvider } from "@/lib/reviews-context"
 import { EmailProvider } from "@/lib/email-context"
 import { WishlistProvider } from "@/lib/wishlist-context"
+import { AuthProvider } from "@/lib/auth-context"
 import SlideInCart from "@/components/slide-in-cart"
 import ComparisonBar from "@/components/comparison-bar"
 import { Suspense } from "react"
@@ -47,22 +48,24 @@ export default function RootLayout({
       <body className={`${inter.variable} ${playfair.variable} ${pacifico.variable} font-sans antialiased`}>
         <ThemeProvider defaultTheme="dark" storageKey="lnsc-theme">
           <Suspense fallback={null}>
-            <SearchProvider>
-              <ComparisonProvider>
-                <ReviewsProvider>
-                  <EmailProvider>
-                    <WishlistProvider>
-                      <CartProvider>
-                        <Navbar />
-                        <main className="pt-16 pb-20">{children}</main>
-                        <SlideInCart />
-                        <ComparisonBar />
-                      </CartProvider>
-                    </WishlistProvider>
-                  </EmailProvider>
-                </ReviewsProvider>
-              </ComparisonProvider>
-            </SearchProvider>
+            <AuthProvider>
+              <SearchProvider>
+                <ComparisonProvider>
+                  <ReviewsProvider>
+                    <EmailProvider>
+                      <WishlistProvider>
+                        <CartProvider>
+                          <Navbar />
+                          <main className="pt-16 pb-20">{children}</main>
+                          <SlideInCart />
+                          <ComparisonBar />
+                        </CartProvider>
+                      </WishlistProvider>
+                    </EmailProvider>
+                  </ReviewsProvider>
+                </ComparisonProvider>
+              </SearchProvider>
+            </AuthProvider>
           </Suspense>
         </ThemeProvider>
       </body>
