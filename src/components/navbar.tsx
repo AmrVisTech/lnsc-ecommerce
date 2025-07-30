@@ -1,12 +1,14 @@
 "use client"
 
+import { Button } from "@/components/ui/button"
+
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
-import { ShoppingCart, Menu, X, Sun, Moon } from "lucide-react"
+import { ShoppingCart, Menu, X, Sun, Moon, Heart } from "lucide-react"
 import { useTheme } from "@/lib/theme-context"
-import { Button } from "@/components/ui/button"
 import { useCart } from "@/lib/cart-context"
+import { useWishlist } from "@/lib/wishlist-context"
 import AdvancedSearch from "@/components/advanced-search"
 
 export default function Navbar() {
@@ -14,6 +16,7 @@ export default function Navbar() {
   const [lastScrollY, setLastScrollY] = useState(0)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const { getTotalItems, setIsCartOpen } = useCart()
+  const { getTotalItems: getWishlistItems } = useWishlist()
   const { theme, setTheme } = useTheme()
 
   useEffect(() => {
@@ -39,6 +42,7 @@ export default function Navbar() {
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/shop", label: "Shop" },
+    { href: "/wishlist", label: "Wishlist" },
     { href: "/my-reviews", label: "My Reviews" },
     { href: "/email-settings", label: "Email Settings" },
     { href: "/branches", label: "Branches" },
@@ -86,6 +90,17 @@ export default function Navbar() {
             <Button variant="ghost" size="icon" onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
               {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </Button>
+
+            <Link href="/wishlist" className="relative">
+              <Button variant="ghost" size="icon">
+                <Heart className="h-5 w-5" />
+                {getWishlistItems() > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                    {getWishlistItems()}
+                  </span>
+                )}
+              </Button>
+            </Link>
 
             <button onClick={() => setIsCartOpen(true)} className="relative">
               <Button variant="ghost" size="icon">
