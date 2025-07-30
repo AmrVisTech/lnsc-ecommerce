@@ -12,6 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { useCart } from "@/lib/cart-context"
+import { useEmailIntegration } from "@/hooks/use-email-integration"
 
 const branches = [
   { id: "zamboanga", name: "Zamboanga City", address: "Mayor Jaldon Street, Zamboanga City" },
@@ -22,6 +23,7 @@ const branches = [
 
 export default function CheckoutPage() {
   const { items, getTotalPrice, clearCart } = useCart()
+  const { sendOrderConfirmation, scheduleReviewReminder } = useEmailIntegration()
   const [step, setStep] = useState(1)
   const [orderComplete, setOrderComplete] = useState(false)
   const [formData, setFormData] = useState({
@@ -54,6 +56,43 @@ export default function CheckoutPage() {
   const handleSubmitOrder = async () => {
     // Simulate order processing
     setOrderComplete(true)
+
+    // Generate order number
+    const orderNumber = `LNSC${Date.now()}`
+
+    // Send order confirmation email
+    try {
+      await sendOrderConfirmation({
+        customerName: `${formData.firstName} ${formData.lastName}`,
+        customerEmail: formData.email,
+        orderNumber,
+        orderDate: new Date().toLocaleDateString(),
+        orderTotal: total,
+        paymentMethod: formData.paymentMethod === "cod" ? "Cash on Delivery" : formData.paymentMethod.toUpperCase(),
+        items: items.map((item) => ({
+          name: item.name,
+          image: item.image,
+          quantity: item.quantity,
+          price: item.price,
+          total: item.price * item.quantity,
+        })),
+      })
+
+      // Schedule review reminders for each product
+      for (const item of items) {
+        await scheduleReviewReminder({
+          customerName: `${formData.firstName} ${formData.lastName}`,
+          customerEmail: formData.email,
+          productName: item.name,
+          productImage: item.image,
+          productId: item.id,
+          purchaseDate: new Date().toLocaleDateString(),
+        })
+      }
+    } catch (error) {
+      console.error("Failed to send order confirmation:", error)
+    }
+
     setTimeout(() => {
       clearCart()
     }, 2000)
@@ -90,7 +129,7 @@ export default function CheckoutPage() {
           </motion.div>
           <h1 className="font-serif text-2xl font-bold text-gray-900 dark:text-white mb-2">Order Confirmed!</h1>
           <p className="text-gray-600 dark:text-gray-400 mb-6">
-            Thank you for your order. We&apos;ll contact you shortly with confirmation details.
+            Thank you for your order. We&apos;ve sent a confirmation email with all the details.
           </p>
           <div className="space-y-3">
             <Link href="/shop">
@@ -226,7 +265,7 @@ export default function CheckoutPage() {
 
                   <RadioGroup
                     value={formData.deliveryMethod}
-                    onValueChange={(value: string) => handleInputChange("deliveryMethod", value)}
+                    onValueChange={(value) => handleInputChange("deliveryMethod", value)}
                   >
                     <div className="flex items-center space-x-2 p-4 border rounded-lg">
                       <RadioGroupItem value="pickup" id="pickup" />
@@ -279,7 +318,7 @@ export default function CheckoutPage() {
                         <Textarea
                           id="address"
                           value={formData.address}
-                          onChange={(e: { target: { value: string } }) => handleInputChange("address", e.target.value)}
+                          onChange={(e) => handleInputChange("address", e.target.value)}
                           placeholder="Enter your complete address"
                         />
                       </div>
@@ -335,7 +374,7 @@ export default function CheckoutPage() {
 
                   <RadioGroup
                     value={formData.paymentMethod}
-                    onValueChange={(value: string) => handleInputChange("paymentMethod", value)}
+                    onValueChange={(value) => handleInputChange("paymentMethod", value)}
                   >
                     <div className="flex items-center space-x-2 p-4 border rounded-lg">
                       <RadioGroupItem value="cod" id="cod" />
@@ -365,7 +404,7 @@ export default function CheckoutPage() {
                     <Textarea
                       id="notes"
                       value={formData.notes}
-                      onChange={(e: { target: { value: string } }) => handleInputChange("notes", e.target.value)}
+                      onChange={(e) => handleInputChange("notes", e.target.value)}
                       placeholder="Any special instructions for your order"
                     />
                   </div>
