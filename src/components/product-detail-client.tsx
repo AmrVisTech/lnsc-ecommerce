@@ -3,10 +3,9 @@
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import Link from "next/link"
-import { ArrowLeft, Star, Heart, Share2, ShoppingCart, MapPin, Shield, Truck, Award, BarChart3 } from "lucide-react"
+import { ArrowLeft, Star, Share2, ShoppingCart, MapPin, Shield, Truck, Award, BarChart3 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useCart } from "@/lib/cart-context"
@@ -15,6 +14,8 @@ import ImageCarousel from "@/components/image-carousel"
 import ProductSpecs from "@/components/product-specs"
 import ProductReviews from "@/components/product-reviews"
 import RelatedProducts from "@/components/related-products"
+import { Label } from "@/components/ui/label"
+import WishlistButton from "@/components/wishlist-button"
 
 // Mock product data - in real app, this would come from API
 const getProductById = (id: string) => {
@@ -145,14 +146,13 @@ const getProductById = (id: string) => {
   return products[id as keyof typeof products] || null
 }
 
-export default function ProductDetailClient({ id }: { id: string }) {
+export default function ProductDetailPage({ params }: { params: { id: string } }) {
   const [selectedBranch, setSelectedBranch] = useState("")
-  const [isWishlisted, setIsWishlisted] = useState(false)
   const [activeTab, setActiveTab] = useState("overview")
   const { addItem } = useCart()
   const { addToComparison, removeFromComparison, isInComparison } = useComparison()
 
-  const product = getProductById(id)
+  const product = getProductById(params.id)
 
   useEffect(() => {
     if (product && product.availability.length > 0) {
@@ -353,13 +353,24 @@ export default function ProductDetailClient({ id }: { id: string }) {
                 Add to Cart
               </Button>
 
-              <Button
+              <WishlistButton
+                product={{
+                  id: product.id.toString(),
+                  name: product.name,
+                  brand: product.brand,
+                  model: product.model,
+                  price: product.price,
+                  originalPrice: product.originalPrice,
+                  image: product.images[0],
+                  rating: product.rating,
+                  reviewCount: product.reviewCount,
+                  category: product.category,
+                  availability: product.availability,
+                  inStock: product.inStock,
+                }}
+                size="lg"
                 variant="outline"
-                onClick={() => setIsWishlisted(!isWishlisted)}
-                className={`px-4 ${isWishlisted ? "text-red-500 border-red-500" : ""}`}
-              >
-                <Heart className={`w-4 h-4 ${isWishlisted ? "fill-current" : ""}`} />
-              </Button>
+              />
 
               <Button
                 variant="outline"
