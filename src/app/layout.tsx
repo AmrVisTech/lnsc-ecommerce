@@ -9,6 +9,7 @@ import { SearchProvider } from "@/lib/search-context"
 import { ComparisonProvider } from "@/lib/comparison-context"
 import { ReviewsProvider } from "@/lib/reviews-context"
 import { EmailProvider } from "@/lib/email-context"
+import { WishlistProvider } from "@/lib/wishlist-context"
 import SlideInCart from "@/components/slide-in-cart"
 import ComparisonBar from "@/components/comparison-bar"
 import { Suspense } from "react"
@@ -50,12 +51,14 @@ export default function RootLayout({
               <ComparisonProvider>
                 <ReviewsProvider>
                   <EmailProvider>
-                    <CartProvider>
-                      <Navbar />
-                      <main className="pt-16 pb-20">{children}</main>
-                      <SlideInCart />
-                      <ComparisonBar />
-                    </CartProvider>
+                    <WishlistProvider>
+                      <CartProvider>
+                        <Navbar />
+                        <main className="pt-16 pb-20">{children}</main>
+                        <SlideInCart />
+                        <ComparisonBar />
+                      </CartProvider>
+                    </WishlistProvider>
                   </EmailProvider>
                 </ReviewsProvider>
               </ComparisonProvider>

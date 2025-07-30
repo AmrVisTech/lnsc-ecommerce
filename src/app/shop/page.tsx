@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useCart } from "@/lib/cart-context"
 import { useComparison } from "@/lib/comparison-context"
+import WishlistButton from "@/components/wishlist-button"
 
 // Mock product data
 const products = [
@@ -332,6 +333,24 @@ export default function ShopPage() {
           >
             Add to Cart
           </Button>
+          <WishlistButton
+            product={{
+              id: product.id,
+              name: product.name,
+              brand: product.brand,
+              model: product.model,
+              price: product.price,
+              originalPrice: product.originalPrice,
+              image: product.image,
+              rating: product.rating,
+              reviewCount: product.reviews,
+              category: product.category,
+              availability: product.availability,
+              inStock: true,
+            }}
+            size="md"
+            variant="outline"
+          />
           <Button
             variant="outline"
             onClick={() => handleComparisonToggle(product)}
