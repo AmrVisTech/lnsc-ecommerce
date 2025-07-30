@@ -205,6 +205,13 @@ export default function Navbar() {
                   >
                     Sign In
                   </Link>
+                  <Link
+                    href="/register"
+                    className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Sign Up
+                  </Link>
                 </>
               )}
             </div>
