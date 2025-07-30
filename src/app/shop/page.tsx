@@ -343,7 +343,7 @@ export default function ShopPage() {
               originalPrice: product.originalPrice,
               image: product.image,
               rating: product.rating,
-              reviews: product.reviews,
+              reviewCount: product.reviews,
               category: product.category,
               availability: product.availability,
               inStock: true,
