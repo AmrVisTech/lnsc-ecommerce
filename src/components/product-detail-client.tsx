@@ -355,7 +355,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
 
               <WishlistButton
                 product={{
-                  id: product.id,
+                  id: product.id.toString(),
                   name: product.name,
                   brand: product.brand,
                   model: product.model,
