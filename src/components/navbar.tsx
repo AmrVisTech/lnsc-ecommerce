@@ -1,12 +1,11 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
-
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { ShoppingCart, Menu, X, Sun, Moon } from "lucide-react"
 import { useTheme } from "@/lib/theme-context"
+import { Button } from "@/components/ui/button"
 import { useCart } from "@/lib/cart-context"
 import AdvancedSearch from "@/components/advanced-search"
 
@@ -41,6 +40,7 @@ export default function Navbar() {
     { href: "/", label: "Home" },
     { href: "/shop", label: "Shop" },
     { href: "/my-reviews", label: "My Reviews" },
+    { href: "/email-settings", label: "Email Settings" },
     { href: "/branches", label: "Branches" },
     { href: "/about", label: "About" },
     { href: "/contact", label: "Contact" },
