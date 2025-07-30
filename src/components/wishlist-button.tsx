@@ -1,72 +1,50 @@
 "use client"
 
-import { useState } from "react"
-import { motion } from "framer-motion"
+import type React from "react"
+
 import { Heart } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useWishlist, type WishlistItem } from "@/lib/wishlist-context"
+import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 
 interface WishlistButtonProps {
   product: {
-    id: number
+    id: string
     name: string
-    brand: string
-    model?: string
     price: number
     originalPrice?: number
     image: string
-    rating: number
-    reviewCount?: number
-    reviews?: number
+    model: string
     category: string
+    brand: string
+    rating: number
+    reviewCount: number
+    inStock: boolean
     availability: string[]
-    inStock?: boolean
   }
   size?: "sm" | "md" | "lg"
   variant?: "default" | "ghost" | "outline"
-  showText?: boolean
   className?: string
 }
 
-export default function WishlistButton({
-  product,
-  size = "md",
-  variant = "outline",
-  showText = false,
-  className,
-}: WishlistButtonProps) {
-  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist()
-  const [isAnimating, setIsAnimating] = useState(false)
-
+export default function WishlistButton({ product, size = "md", variant = "ghost", className }: WishlistButtonProps) {
+  const { addItem, removeItem, isInWishlist } = useWishlist()
   const inWishlist = isInWishlist(product.id)
 
-  const handleToggle = () => {
-    setIsAnimating(true)
-
-    const wishlistItem: WishlistItem = {
-      id: product.id,
-      name: product.name,
-      brand: product.brand,
-      model: product.model,
-      price: product.price,
-      originalPrice: product.originalPrice,
-      image: product.image,
-      rating: product.rating,
-      reviewCount: product.reviewCount || product.reviews || 0,
-      category: product.category,
-      availability: product.availability,
-      inStock: product.inStock ?? true,
-      addedAt: new Date().toISOString(),
-    }
+  const handleToggleWishlist = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
 
     if (inWishlist) {
-      removeFromWishlist(product.id)
+      removeItem(product.id)
     } else {
-      addToWishlist(wishlistItem)
+      const wishlistItem: WishlistItem = {
+        ...product,
+        addedAt: new Date(),
+      }
+      addItem(wishlistItem)
     }
-
-    setTimeout(() => setIsAnimating(false), 300)
   }
 
   const sizeClasses = {
@@ -84,18 +62,30 @@ export default function WishlistButton({
   return (
     <Button
       variant={variant}
-      size={showText ? "default" : "icon"}
-      onClick={handleToggle}
+      size="icon"
+      onClick={handleToggleWishlist}
       className={cn(
-        !showText && sizeClasses[size],
-        inWishlist && variant === "outline" && "border-red-500 text-red-500 hover:bg-red-50 dark:hover:bg-red-950",
+        sizeClasses[size],
+        "relative group transition-all duration-200",
+        inWishlist && "text-red-500 hover:text-red-600",
+        !inWishlist && "text-gray-400 hover:text-red-500",
         className,
       )}
+      aria-label={inWishlist ? "Remove from wishlist" : "Add to wishlist"}
     >
-      <motion.div animate={isAnimating ? { scale: [1, 1.3, 1] } : {}} transition={{ duration: 0.3 }}>
-        <Heart className={cn(iconSizes[size], inWishlist && "fill-red-500 text-red-500", !showText && "mx-0")} />
+      <motion.div initial={false} animate={{ scale: inWishlist ? 1.1 : 1 }} transition={{ duration: 0.2 }}>
+        <Heart className={cn(iconSizes[size], "transition-all duration-200", inWishlist && "fill-current")} />
       </motion.div>
-      {showText && <span className="ml-2">{inWishlist ? "Remove from Wishlist" : "Add to Wishlist"}</span>}
+
+      {/* Pulse effect when adding to wishlist */}
+      {inWishlist && (
+        <motion.div
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1.5, opacity: 0 }}
+          transition={{ duration: 0.6 }}
+          className="absolute inset-0 rounded-full border-2 border-red-500"
+        />
+      )}
     </Button>
   )
 }

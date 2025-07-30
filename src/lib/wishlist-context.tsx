@@ -1,98 +1,131 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
 import type React from "react"
-import { createContext, useContext, useState, useEffect } from "react"
+import { createContext, useContext, useReducer, useEffect } from "react"
 
 export interface WishlistItem {
-  id: number
+  id: string
   name: string
-  brand: string
-  model?: string
   price: number
   originalPrice?: number
   image: string
+  category: string
+  brand: string
   rating: number
   reviewCount: number
-  category: string
-  availability: string[]
   inStock: boolean
-  addedAt: string
+  availability: string[]
+  addedAt: Date
+}
+
+interface WishlistState {
+  items: WishlistItem[]
+}
+
+type WishlistAction =
+  | { type: "ADD_ITEM"; payload: WishlistItem }
+  | { type: "REMOVE_ITEM"; payload: string }
+  | { type: "CLEAR_WISHLIST" }
+  | { type: "LOAD_WISHLIST"; payload: WishlistItem[] }
+
+const wishlistReducer = (state: WishlistState, action: WishlistAction): WishlistState => {
+  switch (action.type) {
+    case "ADD_ITEM":
+      // Check if item already exists
+      if (state.items.some((item) => item.id === action.payload.id)) {
+        return state
+      }
+      return {
+        ...state,
+        items: [...state.items, { ...action.payload, addedAt: new Date() }],
+      }
+    case "REMOVE_ITEM":
+      return {
+        ...state,
+        items: state.items.filter((item) => item.id !== action.payload),
+      }
+    case "CLEAR_WISHLIST":
+      return {
+        ...state,
+        items: [],
+      }
+    case "LOAD_WISHLIST":
+      return {
+        ...state,
+        items: action.payload,
+      }
+    default:
+      return state
+  }
 }
 
 interface WishlistContextType {
   items: WishlistItem[]
-  addToWishlist: (item: WishlistItem) => void
-  removeFromWishlist: (id: number) => void
-  isInWishlist: (id: number) => boolean
+  addItem: (item: WishlistItem) => void
+  removeItem: (id: string) => void
   clearWishlist: () => void
+  isInWishlist: (id: string) => boolean
   getTotalItems: () => number
-  moveToCart: (id: number) => void
 }
 
 const WishlistContext = createContext<WishlistContextType | undefined>(undefined)
 
 export function WishlistProvider({ children }: { children: React.ReactNode }) {
-  const [items, setItems] = useState<WishlistItem[]>([])
+  const [state, dispatch] = useReducer(wishlistReducer, { items: [] })
 
   // Load wishlist from localStorage on mount
   useEffect(() => {
     const savedWishlist = localStorage.getItem("lnsc-wishlist")
     if (savedWishlist) {
       try {
-        setItems(JSON.parse(savedWishlist))
+        const parsedWishlist = JSON.parse(savedWishlist)
+        // Convert addedAt strings back to Date objects
+        const wishlistWithDates = parsedWishlist.map((item: any) => ({
+          ...item,
+          addedAt: new Date(item.addedAt),
+        }))
+        dispatch({ type: "LOAD_WISHLIST", payload: wishlistWithDates })
       } catch (error) {
         console.error("Error loading wishlist from localStorage:", error)
       }
     }
   }, [])
 
-  // Save wishlist to localStorage whenever items change
+  // Save wishlist to localStorage whenever it changes
   useEffect(() => {
-    localStorage.setItem("lnsc-wishlist", JSON.stringify(items))
-  }, [items])
+    localStorage.setItem("lnsc-wishlist", JSON.stringify(state.items))
+  }, [state.items])
 
-  const addToWishlist = (item: WishlistItem) => {
-    setItems((prevItems) => {
-      const existingItem = prevItems.find((i) => i.id === item.id)
-      if (existingItem) {
-        return prevItems // Item already in wishlist
-      }
-      return [...prevItems, { ...item, addedAt: new Date().toISOString() }]
-    })
+  const addItem = (item: WishlistItem) => {
+    dispatch({ type: "ADD_ITEM", payload: item })
   }
 
-  const removeFromWishlist = (id: number) => {
-    setItems((prevItems) => prevItems.filter((item) => item.id !== id))
-  }
-
-  const isInWishlist = (id: number) => {
-    return items.some((item) => item.id === id)
+  const removeItem = (id: string) => {
+    dispatch({ type: "REMOVE_ITEM", payload: id })
   }
 
   const clearWishlist = () => {
-    setItems([])
+    dispatch({ type: "CLEAR_WISHLIST" })
+  }
+
+  const isInWishlist = (id: string) => {
+    return state.items.some((item) => item.id === id)
   }
 
   const getTotalItems = () => {
-    return items.length
-  }
-
-  const moveToCart = (id: number) => {
-    // This would integrate with the cart context
-    // For now, we'll just remove from wishlist
-    removeFromWishlist(id)
+    return state.items.length
   }
 
   return (
     <WishlistContext.Provider
       value={{
-        items,
-        addToWishlist,
-        removeFromWishlist,
-        isInWishlist,
+        items: state.items,
+        addItem,
+        removeItem,
         clearWishlist,
+        isInWishlist,
         getTotalItems,
-        moveToCart,
       }}
     >
       {children}
