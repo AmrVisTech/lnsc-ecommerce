@@ -428,9 +428,8 @@ export default function ProductDetailClient({ id }: { id: string }) {
             </TabsContent>
 
             <TabsContent value="reviews" className="mt-6">
-              <ProductReviews reviews={product.reviews} rating={product.rating} reviewCount={product.reviewCount} />
+              <ProductReviews productId={product.id} productName={product.name} currentUserId="current-user" />
             </TabsContent>
-
           </Tabs>
         </motion.div>
 
