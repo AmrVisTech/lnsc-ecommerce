@@ -158,10 +158,11 @@ export default function ChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 100, scale: 0.8 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="fixed bottom-24 right-4 w-[90%] sm:w-80 md:w-96 max-w-full h-[60vh] sm:h-[400px] bg-white dark:bg-gray-900 rounded-lg shadow-2xl border border-gray-200 dark:border-gray-800 z-40 flex flex-col overflow-y-auto overflow-x-hidden"
+            className="fixed bottom-24 right-4 w-[90%] sm:w-80 md:w-96 max-w-full h-[60vh] sm:h-[400px] bg-white dark:bg-gray-900 rounded-lg shadow-2xl border border-gray-200 dark:border-gray-800 z-40 flex flex-col overflow-y-auto overflow-x-hidden hide-scrollbar"
+
           >
             {/* Header */}
-            <div className="bg-blue-600 text-white p-4 flex items-center justify-between">
+            <div className="sticky top-0 z-10 bg-blue-600 text-white p-4 flex items-center justify-between">
               <div className="flex items-center space-x-3">
                 <div className="relative">
                   <Avatar className="h-8 w-8">
@@ -180,25 +181,6 @@ export default function ChatWidget() {
                         : "Online"}
                   </p>
                 </div>
-              </div>
-
-              <div className="flex items-center space-x-2">
-                <Button variant="ghost" size="icon" className="h-8 w-8 text-white hover:bg-blue-700">
-                  <Phone className="h-4 w-4" />
-                </Button>
-                <Button variant="ghost" size="icon" className="h-8 w-8 text-white hover:bg-blue-700">
-                  <Video className="h-4 w-4" />
-                </Button>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="icon" className="h-8 w-8 text-white hover:bg-blue-700">
-                      <MoreVertical className="h-4 w-4" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent>
-                    <DropdownMenuItem onClick={handleEndChat}>End Chat</DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
               </div>
             </div>
 
