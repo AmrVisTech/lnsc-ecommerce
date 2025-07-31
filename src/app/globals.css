@@ -120,3 +120,36 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* SCROLLBAR STYLES */
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
+
+/* Modern Minimal Scrollbar */
+.scrollbar-light {
+  scrollbar-width: thin;               /* Firefox */
+  scrollbar-color: #cbd5e1 transparent; /* thumb color and track background */
+}
+
+.scrollbar-light::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.scrollbar-light::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-light::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1; /* Tailwind's slate-300 */
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
