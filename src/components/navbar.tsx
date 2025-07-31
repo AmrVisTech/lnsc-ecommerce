@@ -110,16 +110,20 @@ export default function Navbar() {
               </Button>
             </Link>
 
-            <button onClick={() => setIsCartOpen(true)} className="relative">
-              <Button variant="ghost" size="icon">
-                <ShoppingCart className="h-5 w-5" />
-                {getTotalItems() > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-blue-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                    {getTotalItems()}
-                  </span>
-                )}
-              </Button>
-            </button>
+            <Button
+              onClick={() => setIsCartOpen(true)}
+              variant="ghost"
+              size="icon"
+              className="relative"
+            >
+              <ShoppingCart className="h-5 w-5" />
+              {getTotalItems() > 0 && (
+                <span className="absolute -top-1 -right-1 bg-blue-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  {getTotalItems()}
+                </span>
+              )}
+            </Button>
+
 
             {/* User Menu */}
             {user ? (
