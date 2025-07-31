@@ -11,8 +11,10 @@ import { ReviewsProvider } from "@/lib/reviews-context"
 import { EmailProvider } from "@/lib/email-context"
 import { WishlistProvider } from "@/lib/wishlist-context"
 import { AuthProvider } from "@/lib/auth-context"
+import { ChatProvider } from "@/lib/chat-context"
 import SlideInCart from "@/components/slide-in-cart"
 import ComparisonBar from "@/components/comparison-bar"
+import ChatWidget from "@/components/chat-widget"
 import { Suspense } from "react"
 
 const inter = Inter({
@@ -54,12 +56,15 @@ export default function RootLayout({
                   <ReviewsProvider>
                     <EmailProvider>
                       <WishlistProvider>
-                        <CartProvider>
-                          <Navbar />
-                          <main className="pt-16 pb-20">{children}</main>
-                          <SlideInCart />
-                          <ComparisonBar />
-                        </CartProvider>
+                        <ChatProvider>
+                          <CartProvider>
+                            <Navbar />
+                            <main className="pt-16 pb-20">{children}</main>
+                            <SlideInCart />
+                            <ComparisonBar />
+                            <ChatWidget />
+                          </CartProvider>
+                        </ChatProvider>
                       </WishlistProvider>
                     </EmailProvider>
                   </ReviewsProvider>
