@@ -50,12 +50,7 @@ export default function Navbar() {
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/shop", label: "Shop" },
-    { href: "/wishlist", label: "Wishlist" },
-    { href: "/my-reviews", label: "My Reviews" },
-    { href: "/email-settings", label: "Email Settings" },
-    { href: "/branches", label: "Branches" },
-    { href: "/about", label: "About" },
-    { href: "/contact", label: "Contact" },
+    { href: "/branches", label: "Branches" }
   ]
 
   return (
