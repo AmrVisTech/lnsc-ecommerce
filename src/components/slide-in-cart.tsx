@@ -166,7 +166,7 @@ export default function SlideInCart() {
                       Proceed to Checkout
                     </Button>
                   </Link>
-                  <Button variant="outline" className="w-full bg-transparent" onClick={() => setIsCartOpen(false)}>
+                  <Button variant="outline" className="w-full bg-transparent mt-2" onClick={() => setIsCartOpen(false)}>
                     Continue Shopping
                   </Button>
                 </div>
