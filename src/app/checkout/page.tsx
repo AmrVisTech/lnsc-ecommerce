@@ -211,6 +211,7 @@ export default function CheckoutPage() {
                         value={formData.firstName}
                         onChange={(e) => handleInputChange("firstName", e.target.value)}
                         placeholder="Enter your first name"
+                        className="mt-0.5"
                       />
                     </div>
                     <div>
@@ -220,6 +221,7 @@ export default function CheckoutPage() {
                         value={formData.lastName}
                         onChange={(e) => handleInputChange("lastName", e.target.value)}
                         placeholder="Enter your last name"
+                        className="mt-0.5"
                       />
                     </div>
                   </div>
@@ -232,6 +234,7 @@ export default function CheckoutPage() {
                       value={formData.email}
                       onChange={(e) => handleInputChange("email", e.target.value)}
                       placeholder="Enter your email"
+                      className="mt-0.5"
                     />
                   </div>
 
@@ -242,6 +245,7 @@ export default function CheckoutPage() {
                       value={formData.phone}
                       onChange={(e) => handleInputChange("phone", e.target.value)}
                       placeholder="Enter your phone number"
+                      className="mt-0.5"
                     />
                   </div>
 
@@ -289,10 +293,11 @@ export default function CheckoutPage() {
 
                   {formData.deliveryMethod === "pickup" && (
                     <div>
-                      <Label>Select Branch</Label>
+                      <Label className="mb-1">Select Branch</Label>
                       <Select
                         value={formData.selectedBranch}
                         onValueChange={(value) => handleInputChange("selectedBranch", value)}
+                        
                       >
                         <SelectTrigger>
                           <SelectValue placeholder="Choose a branch" />
@@ -400,12 +405,13 @@ export default function CheckoutPage() {
                   </RadioGroup>
 
                   <div>
-                    <Label htmlFor="notes">Order Notes (Optional)</Label>
+                    <Label htmlFor="notes" >Order Notes (Optional)</Label>
                     <Textarea
                       id="notes"
                       value={formData.notes}
                       onChange={(e) => handleInputChange("notes", e.target.value)}
                       placeholder="Any special instructions for your order"
+                      className="mt-1"
                     />
                   </div>
 

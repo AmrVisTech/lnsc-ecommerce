@@ -50,12 +50,7 @@ export default function Navbar() {
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/shop", label: "Shop" },
-    { href: "/wishlist", label: "Wishlist" },
-    { href: "/my-reviews", label: "My Reviews" },
-    { href: "/email-settings", label: "Email Settings" },
-    { href: "/branches", label: "Branches" },
-    { href: "/about", label: "About" },
-    { href: "/contact", label: "Contact" },
+    { href: "/branches", label: "Branches" }
   ]
 
   return (
@@ -110,16 +105,20 @@ export default function Navbar() {
               </Button>
             </Link>
 
-            <button onClick={() => setIsCartOpen(true)} className="relative">
-              <Button variant="ghost" size="icon">
-                <ShoppingCart className="h-5 w-5" />
-                {getTotalItems() > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-blue-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                    {getTotalItems()}
-                  </span>
-                )}
-              </Button>
-            </button>
+            <Button
+              onClick={() => setIsCartOpen(true)}
+              variant="ghost"
+              size="icon"
+              className="relative"
+            >
+              <ShoppingCart className="h-5 w-5" />
+              {getTotalItems() > 0 && (
+                <span className="absolute -top-1 -right-1 bg-blue-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  {getTotalItems()}
+                </span>
+              )}
+            </Button>
+
 
             {/* User Menu */}
             {user ? (
