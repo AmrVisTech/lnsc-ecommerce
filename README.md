@@ -75,11 +75,11 @@ Please refer to the [LICENSE](./LICENSE) file for full legal terms and usage con
 
 If you're from LNSC or a partner interested in this project:
 
-* 📧 Email: [amrvistech@gmail.com](mailto:amrvistech@gmail.com)
+* 📧 Email: [siratim.hq@gmail.com](mailto:siratim.hq@gmail.com)
 * 📞 Phone: +63-975-950-1214
 * 🗺️ Location: Zamboanga City, Philippines
 
 ---
-> 🚀 This project is maintained by [AmrVisTech (AVT)](https://github.com/AmrVisTech), a collaborative developer team focused on building innovative technology proposals and systems for modern businesses.
+> 🚀 This project is maintained by [Siratim Labs](https://github.com/siratimlabs), a collaborative developer team focused on building innovative technology proposals and systems for modern businesses.
 
-*Copyright © 2025 AmrVisTech (AVT)*
+*Copyright © 2025 Siratim Labs*
